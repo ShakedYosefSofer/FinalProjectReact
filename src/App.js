@@ -1,24 +1,23 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { useState } from "react"; 
 import './App.css';
 import Home from "./pages/Home";
-import Favorites from "./pages/Favorites";
-import Header1 from "./components/Header1";
-import Page404 from "./pages/Page404";
-import { FavoriteProvider } from './context/FavoriteContext'; // שינוי כאן ל- FavoriteProvider
-import Pixa from "./pages/Pixa";
+import Header1 from "./components/Header";
 import EmployeeDetails from './pages/EmployeeDetails';
+import Favorites from "./pages/Favorites";
+import FavoritesDetails from './pages/FavoritesDetails'; 
+import { FavoriteProvider } from './context/FavoriteContext';
+import Page404 from "./pages/Page404";
 
 function App() {
   return (
-    <FavoriteProvider> {/* תיקון כאן לשימוש ב-FavoriteProvider */}
+    <FavoriteProvider>
       <BrowserRouter>
         <Header1 />
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/Favorites" element={<Favorites />} />
-          <Route path="/EmployeeDetails" element={<EmployeeDetails />} />
-          <Route path="/pixa" element={<Pixa />} />
+          <Route path="/favorites" element={<Favorites />} />
+          <Route path="/employee" element={<EmployeeDetails />} /> {/* שינוי כאן לנתיב החדש */}
+          <Route path="/Favorites/employee" element={<FavoritesDetails />} /> {/* נתיב חדש ל-FavoritesDetails */}
           <Route path="*" element={<Page404 />} />
         </Routes>
       </BrowserRouter>

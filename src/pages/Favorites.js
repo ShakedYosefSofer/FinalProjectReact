@@ -28,7 +28,7 @@ export default function Favorites() {
                   <u><b>Location:</b></u> {fav.location.street.number} {fav.location.street.name}, {fav.location.city}, {fav.location.state}, {fav.location.country}
                 </p>
                 <button
-                  onClick={() => nav(`/favs/employee?index=${index}`, { state: { employee: fav } })}
+                  onClick={() => nav(`/Favorites/employee?index=${index}`, { state: { employee: fav } })}
                   className="mt-2 px-4 py-2 bg-blue-500 text-black rounded hover:bg-blue-700"
                 >
                   More Info

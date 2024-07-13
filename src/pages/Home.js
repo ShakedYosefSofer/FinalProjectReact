@@ -9,9 +9,8 @@ const Home = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [query] = useSearchParams();
   const nav = useNavigate();
-  const queryS = query.get('search') || '';
+  const queryS = query.get('search') || ' ';
 
-  // useEffect שמבצע טעינה של תוצאות החיפוש אם יש שאילתת חיפוש ב-URL
   useEffect(() => {
     if (queryS) {
       setSearchTerm(queryS.toLowerCase().trim());
@@ -78,11 +77,11 @@ const Home = () => {
                 <u><b>Age:</b></u> {employee.dob.age}
               </p>
               <button
-                  onClick={() => nav(`/employee/?company=${queryS}&index=${index}`, { state: { employee } })}
-                  className="mt-2 px-4 py-2 bg-blue-500 text-black rounded hover:bg-blue-700"
-                >
-                  More info
-                </button>
+                onClick={() => nav(`/employee/?company=${queryS}&index=${index}`, { state: { employee } })}
+                className="mt-2 px-4 py-2 bg-blue-500 text-black rounded hover:bg-blue-700"
+              >
+                More info
+              </button>
               <button
                 onClick={() => handleToggleFavorite(employee)}
                 className="text-500 ml-4 px-3 py-2 rounded hover:700"
