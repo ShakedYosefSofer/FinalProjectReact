@@ -1,15 +1,16 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { useSearchParams, useNavigate, Link } from 'react-router-dom';
 import { FaHeart, FaRegHeart } from 'react-icons/fa';
-import { FavoriteContext } from '../context/FavoriteContext'; 
+import { FavoriteContext } from '../context/FavoriteContext';
 
-const Home = () => {
+export default function Home() {
   const { favorites, handleToggleFavorite } = useContext(FavoriteContext);
   const [employees, setEmployees] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
   const [query] = useSearchParams();
   const nav = useNavigate();
   const queryS = query.get('search') || ' ';
+  const [load, setLoad] = useState(true);
 
   useEffect(() => {
     if (queryS) {
@@ -21,11 +22,14 @@ const Home = () => {
   const doApi = async (seed) => {
     const url = `https://randomuser.me/api/?results=50&seed=${seed}`;
     try {
+      setLoad(true);
       const resp = await fetch(url);
       const data = await resp.json();
       setEmployees(data.results);
+      setLoad(false);
     } catch (error) {
       console.log(error);
+      setLoad(false);
     }
   };
 
@@ -39,6 +43,7 @@ const Home = () => {
 
   return (
     <div className="max-w-4xl text-center mx-auto p-4">
+      
       <div className="text-center mb-4">
         <div>
           <img
@@ -63,7 +68,8 @@ const Home = () => {
         <Link to="/favorites" className="text-blue-500 hover:underline">Go to Favorites</Link>
       </div>
       <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 gap-4">
-        {employees.map((employee, index) => (
+      {load && <h3>Loading...</h3>}
+        {!load && employees.map((employee, index) => (
           <li key={index} className="bg-white shadow rounded p-4 flex items-center">
             <img src={employee.picture.large} alt="employee" className="rounded-full mr-4" />
             <div className="flex-1">
@@ -94,6 +100,4 @@ const Home = () => {
       </ul>
     </div>
   );
-};
-
-export default Home;
+}

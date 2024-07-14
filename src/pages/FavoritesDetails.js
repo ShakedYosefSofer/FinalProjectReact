@@ -41,7 +41,7 @@ export default function FavoritesDetails() {
           {isFavorite ? <FaHeart className="text-red-500" /> : <FaRegHeart />}
         </button>
         <div className="map-container">
-          <MapContainer center={[employee.location.coordinates.latitude, employee.location.coordinates.longitude]} zoom={13} style={{ height: "400px", width: "30%" }} >
+          <MapContainer center={[employee.location.coordinates.latitude, employee.location.coordinates.longitude]} zoom={13} style={{ height: "400px", width: "30%" }} scrollWheelZoom={true} >
             <TileLayer
               url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
             />

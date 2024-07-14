@@ -1,14 +1,14 @@
-import React, { createContext, useState, useEffect } from 'react';
+import React, { createContext, useState, useEffect, useLayoutEffect } from 'react';
 
 // יצירת Context חדש
-const FavoriteContext = createContext();
+export const FavoriteContext = createContext();
 
 // Provider שיספק את ה-context לכל הרכיבים 
 export const FavoriteProvider = ({ children }) => {
   const [favorites, setFavorites] = useState([]);
 
-  // שימוש ב-useEffect לטעון את המועדפים מה-localStorage בעת טעינת הרכיב
-  useEffect(() => {
+  // שימוש ב-useLayoutEffect לטעון את המועדפים מה-localStorage בעת טעינת הרכיב
+  useLayoutEffect(() => {
     const savedFavorites = JSON.parse(localStorage.getItem('favorites')) || [];
     setFavorites(savedFavorites);
   }, []);
@@ -22,11 +22,21 @@ export const FavoriteProvider = ({ children }) => {
     localStorage.setItem('favorites', JSON.stringify(updatedFavorites));
   };
 
+  // פונקציה לאיפוס כל המועדפים
+  const resetFavorites = () => {
+    setFavorites([]);
+    localStorage.setItem('favorites', JSON.stringify([]));
+  };
+
+  const globalValue = {
+    favorites,
+    handleToggleFavorite,
+    resetFavorites
+  };
+
   return (
-    <FavoriteContext.Provider value={{ favorites, handleToggleFavorite }}>
+    <FavoriteContext.Provider value={globalValue}>
       {children}
     </FavoriteContext.Provider>
   );
 };
-
-export { FavoriteContext };
