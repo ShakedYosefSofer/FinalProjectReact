@@ -44,7 +44,7 @@ const Home = () => {
           <img
             src="/pexels-canvastudio-3153207.jpg"
             alt="A beautiful landscape"
-            style={{ width: '1700px', height: '400px' }}
+            style={{ width: '70%', height: '400px' }}
           />
         </div>
         <h1 className="text-2xl font-bold">Page employee {queryS}</h1>
