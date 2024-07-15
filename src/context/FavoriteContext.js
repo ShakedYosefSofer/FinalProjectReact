@@ -1,4 +1,4 @@
-import React, { createContext, useState, useEffect, useLayoutEffect } from 'react';
+import React, { createContext, useState, useLayoutEffect } from 'react';
 
 // יצירת Context חדש
 export const FavoriteContext = createContext();
